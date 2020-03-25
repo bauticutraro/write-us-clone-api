@@ -15,6 +15,10 @@ const ArticleSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  edited: {
+    type: Date,
+    default: Date.now
+  },
   status: {
     type: String,
     enum: ['public', 'private', 'unlisted', 'protected'],
