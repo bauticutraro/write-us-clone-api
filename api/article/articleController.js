@@ -53,11 +53,15 @@ class ArticleController {
       if (!content.trim())
         return res.status(400).json({ error: 'Content required!' });
 
-      await ArticleModel.updateOne(
-        { _id: articleId },
-        { $set: { content, status } }
-      );
-      return res.sendStatus(200);
+      const article = await ArticleModel.findOne({ _id: articleId });
+
+      if (!article)
+        return res.status(404).json({ error: 'Article not found!' });
+
+      article.content = content || article.content;
+      article.status = status || article.status;
+
+      return res.status(200).json(article);
     } catch (err) {
       return res.status(500).send({ error: err.message });
     }
