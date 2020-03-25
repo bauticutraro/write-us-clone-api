@@ -1,6 +1,8 @@
-const router = require('express').Router();
-const article = require('./article/articleRoute');
+import { Router } from 'express';
+import Article from './article/articleRoute';
 
-router.use('/article', article);
+const router = Router();
+
+router.use('/article', Article);
 
 module.exports = router;
