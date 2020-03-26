@@ -9,7 +9,7 @@ class ArticleController {
     if (articleId) query._id = articleId;
 
     try {
-      const articles = await ArticleModel.find(query);
+      const articles = await ArticleModel.find(query).populate('user');
       if (articleId) return res.status(200).json(articles[0]);
       return res.status(200).json(articles);
     } catch (err) {
@@ -23,7 +23,8 @@ class ArticleController {
     if (!id) return res.status(400).json({ error: 'User Id required!' });
 
     try {
-      const articles = await ArticleModel.find({ user: id });
+      const articles = await ArticleModel.find({ user: id }).populate('user');
+
       return res.status(200).json(articles);
     } catch (err) {
       return res.status(500).send({ error: err.message });

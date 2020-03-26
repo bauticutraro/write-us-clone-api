@@ -21,7 +21,7 @@ class UserController {
   }
 
   async register(req, res) {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
     if (!username) return res.status(400).json({ error: 'Username required!' });
     if (!password) return res.status(400).json({ error: 'Password required!' });
@@ -29,7 +29,8 @@ class UserController {
     try {
       const newUser = new UserModel({
         username: username.toLowerCase(),
-        password
+        password,
+        email
       });
 
       const salt = await bcrypt.genSalt(10);
